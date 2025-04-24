@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moment 2</title>
+    <script src="/js/script.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -15,9 +16,9 @@
         <div class="menu">    <p id="headertext">Moment 2 Backend</p>
             <nav>
                 <ul>
-                    <li><a href="/">Your work experience</a></li>
-                    <li><a href="about">About</a></li>
-                    <li><a class="current" href="addexperiences">Add experiences</a></li>
+                    <li><a href="index.html">Your work experience</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a class="current" href="addexperiences.html">Add experiences</a></li>
 
                 </ul>
             </nav>
@@ -27,8 +28,16 @@
         <article>
             <h1>Add a new work experience:</h1>
         </article>
-        <form method="post" action="addcourses">
-
+        <form method="POST" action="/workexperience">
+            <label for="company">Company</label>
+            <input name="company" />
+            <label for="Jobtitle">Job title</label>
+            <input name="jobtitle" />
+            <label for="location">location</label>
+            <input name="location" />
+            <br><br>
+            <a href="#" id="submit">Add work experience</a>
+        </form>
     </main>
     <!--footer-->
     <footer>

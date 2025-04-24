@@ -1,10 +1,7 @@
 
 
-let url = "http://localhost:3000/workexperience"
-let experience = ["sfa", "sdg", "sdf"]
-getData();
-createExperience(experience);
-
+let url = "http://127.0.0.1:3000"
+getData()
 async function getData() {
     const response = await fetch(url);
     const data = await response.json();
@@ -13,7 +10,7 @@ async function getData() {
 
 
 async function createExperience(expArray) {
-    let experiences = {
+    let experience = {
         company: expArray[0],
         jobtitle: expArray[1],
         location: expArray[2]
@@ -21,9 +18,9 @@ async function createExperience(expArray) {
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "Application/json"
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify(experiences)
+        body: JSON.stringify(experience)
     });
 
     const data = await response.json();

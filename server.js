@@ -13,8 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.set("view engine", "ejs");
-app.set("views", "./views")
+
 
 //connect to database
 const connection = mysql.createConnection({
@@ -34,21 +33,9 @@ connection.connect((err) => {
 
 // Routes
 
+
+
 app.get("/", (req, res) => {
-    res.render("index")
-});
-
-
-app.get("/addexperiences", (req, res) => {
-    res.render("addexperiences")
-});
-
-
-app.get("/about", (req, res) => {
-    res.render("about")
-});
-
-app.get("/workexperience", (req, res) => {
 
     //Get experiences
     connection.query("select * FROM experiences;", (err, results) => {
@@ -58,16 +45,13 @@ app.get("/workexperience", (req, res) => {
         }
         if (results.length === 0) {
             res.status(404).json({ message: "no experiences added" })
-        } else {
-            res.json(results);
         }
-
-        console.log(results);
-
-    })
+      
+        res.json(results);
+    });
 });
 
-app.post("/workexperience", (req, res) => {
+app.post("/", (req, res) => {
     let company = req.body.company;
     let jobtitle = req.body.jobtitle;
     let location = req.body.location;
