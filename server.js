@@ -8,8 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 //middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors());app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -35,7 +34,7 @@ connection.connect((err) => {
 
 
 
-app.get("/", (req, res) => {
+app.get("/workexperience", (req, res) => {
 
     //Get experiences
     connection.query("select * FROM experiences;", (err, results) => {
@@ -51,7 +50,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/", (req, res) => {
+app.post("/addexperience", (req, res) => {
     let company = req.body.company;
     let jobtitle = req.body.jobtitle;
     let location = req.body.location;
