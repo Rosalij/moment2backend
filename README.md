@@ -3,12 +3,14 @@ Detta repository innehåller kod för ett enklare REST API byggt med Express. AP
 Grundläggande funktionalitet för CRUD (Create, Read, Update, Delete) är implementerad.
 
 ## Länk
-En live testversion av APIet finns tillgänglig på följande URL: [https://test-vmk0.onrender.com/]
+En live testversion av APIet finns tillgänglig på följande URL: [[apiexamplem2.netlify.app](https://apiexamplem2.netlify.app/)]
 
 ## Installation, databas
-APIet använder en SQLITE3-databas.
-Klona ner källkodsfilerna, kör kommando npm install för att installera nödvändiga npm-paket. Kör installations-skriptet install.js. 
-Installations-skriptet skapar databastabeller enligt nedanstående:
+APIet använder en lokal SQLITE3-databas.
+Webbtjänsten finns även publicerad på 
+[https://moment2backend.onrender.com/workexperience]
+
+Databasen använder följande fält
 |Tabell-namn|Fält  |
 |--|--|
 |experiences| **id**int PK autoincrement, **company** varchar, **jobtitle** varchar, **location** varchar  |
