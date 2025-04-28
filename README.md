@@ -3,15 +3,15 @@ Detta repository innehåller kod för ett enklare REST API byggt med Express. AP
 Grundläggande funktionalitet för CRUD (Create, Read, Update, Delete) är implementerad.
 
 ## Länk
-En liveversion av APIet finns tillgänglig på följande URL: [https://testserver.test/courses](https://miun.se) 
+En live testversion av APIet finns tillgänglig på följande URL: [https://test-vmk0.onrender.com/]
 
 ## Installation, databas
-APIet använder en MySQL-databas.
+APIet använder en SQLITE3-databas.
 Klona ner källkodsfilerna, kör kommando npm install för att installera nödvändiga npm-paket. Kör installations-skriptet install.js. 
 Installations-skriptet skapar databastabeller enligt nedanstående:
 |Tabell-namn|Fält  |
 |--|--|
-|experiences| **id** (int(11), **company** (varchar(80), **jobtitle** (varchar(80) **location** (varchar(80)  |
+|experiences| **id**int PK autoincrement, **company** varchar, **jobtitle** varchar, **location** varchar  |
 
 
 ## Användning
@@ -21,7 +21,7 @@ Nedan finns beskrivet hur man nå APIet på olika vis:
 |-------|-------------|--------------------------------------------------------------------------------------|
 |GET    |/workexperience |Hämtar alla lagrade arbetserfarenheter.                                                      |                                    |
 |POST   |/workexperience |Lagrar en ny erfarenhet. Kräver att erfarenhets-input skickas med.                         |
-|PUT    |/workexperience/:ID |Uppdaterar en existerande erfarenhet med angivet ID. |
+|PUT    |/workexperience/:ID |Uppdaterar en existerande erfarenhet med angivet ID. Kräver att input skickas med. |
 |DELETE |/workexperience/:ID |Raderar en erfarenhet med angivet ID.                                                       |
 
 Ett kurs-objekt returneras/skickas som JSON med följande struktur:

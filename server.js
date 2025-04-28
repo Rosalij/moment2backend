@@ -2,9 +2,17 @@
 //package requirements
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
 require('dotenv').config();
+const sqlite3 = require('sqlite3').verbose();
 
+//use database
+const db = new sqlite3.Database('./databasem2.db', (err) => {
+    if (err) {
+        console.error("Failed to open database:", err.message);
+    } else {
+        console.log("Connected to SQLite database.");
+    }
+});
 
 const app = express();
 //if no specified port, use port 3000
@@ -17,36 +25,21 @@ app.use(express.static("public"));
 
 
 
-//connect to database
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-});
-
-connection.connect((err) => {
-    if (err) {
-        console.error("connection failed: " + err);
-        return;
-    }
-    console.log("Database connected!");
-});
 
 // Routes
 app.get("/workexperience", (req, res) => {
 
     //Get experiences, database query
-    connection.query("select * FROM experiences;", (err, results) => {
+   db.all("SELECT * FROM experiences;", (err, rows) => {
         if (err) {
-            res.status(500).json({ error: "something went wrong" + err });
-            return;
+            return res.status(500).json({ error: "something went wrong" + err });
+    
         }//if nothing is added
-        if (results.length === 0) {
-            res.status(404).json({ message: "no experiences added" })
+        if (rows.length === 0) {
+           return res.status(404).json({ message: "no experiences added" })
         }
         //return results in json
-        res.json(results);
+       return res.json(rows);
     });
 });
 
@@ -57,7 +50,7 @@ app.put("/workexperience/:id", (req, res) => {
     //database query
     const query = `UPDATE experiences SET company = ?, jobtitle = ?, location = ? WHERE id = ?`;
 
-    connection.query(query, [company, jobtitle, location, id], (err, result) => {
+    db.run (query, [company, jobtitle, location, id], function (err) {
         if (err) { //if error
             console.error("update failed: " + err);
             return res.status(500).json({ error: "failed to update work experience" });
@@ -75,7 +68,7 @@ app.delete("/workexperience/:id", (req, res) => {
     const query = `DELETE FROM experiences WHERE id = ?`;
 
 
-    connection.query(query, [id], (err, result) => {
+    db.run(query, [id], function (err) {
         if (err) { // if error
             console.error("delete failed: " + err);
             return res.status(500).json({ error: "failed to delete work experience" });
@@ -115,11 +108,9 @@ app.post("/workexperience", (req, res) => {
     }
 
     //add experience to database from input
-    connection.query(
-        'INSERT INTO experiences(company, jobtitle, location) VALUES (?, ?, ?);', [company, jobtitle, location], (err, result) => {
+    const query = 'INSERT INTO experiences(company, jobtitle, location) VALUES (?, ?, ?);'; db.run(query, [company, jobtitle, location], function (err) {
             if (err) { //if error
-                res.status(500).json({ error: "something went wrong" + err });
-                return;
+               return res.status(500).json({ error: "something went wrong" + err });
             };
 //send info about successful result in json
             res.status(200).json({
